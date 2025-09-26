@@ -1,9 +1,17 @@
-﻿using CLI.UI;
-using InMemoryRepositories;
+﻿using System.Threading.Tasks;
+using CLI.UI;                 
+using FileRepositories;       
+using RepositoryContracts;    
 
-var userRepo = new UserInMemoryRepository();
-var postRepo = new PostInMemoryRepository();
-var commentRepo = new CommentInMemoryRepository();
-
-var app = new CliApp(userRepo, postRepo, commentRepo);
-await app.StartAsync();
+internal class Program
+{
+    private static async Task Main()
+    {
+        IUserRepository userRepo = new UserFileRepository();
+        IPostRepository postRepo = new PostFileRepository();
+        ICommentRepository commentRepo = new CommentFileRepository();
+        
+        var app = new CliApp(userRepo, postRepo, commentRepo);
+        await app.StartAsync();
+    }
+}
